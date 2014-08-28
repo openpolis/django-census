@@ -32,4 +32,9 @@ Then use it in a project::
 Features
 --------
 
-* TODO
+* Manage Question status (draft, published, completed and archived)
+* Optional Answers
+* Signals for user reply and question status change
+* Support for custom user model
+* Localized (en, it)
+* Admin views
