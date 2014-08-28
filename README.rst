@@ -6,10 +6,10 @@ django-census
     :target: https://badge.fury.io/py/django-census
 
 .. image:: https://travis-ci.org/openpolis/django-census.png?branch=master
-    :target: https://travis-ci.org/joke2k/django-census
+    :target: https://travis-ci.org/openpolis/django-census
 
 .. image:: https://coveralls.io/repos/openpolis/django-census/badge.png?branch=master
-    :target: https://coveralls.io/r/joke2k/django-census?branch=master
+    :target: https://coveralls.io/r/openpolis/django-census?branch=master
 
 Django application to manage questions and answers
 
