@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import models
 from django.db import transaction
-from django.db.models.aggregates import Count
 from django.dispatch import Signal
 from django.utils.translation import ugettext_lazy as _
 from ordered_model.models import OrderedModel
