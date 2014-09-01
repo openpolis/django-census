@@ -1,52 +1,33 @@
+#!/usr/bin/env python
+import os
 import sys
 
-try:
-    from django.conf import settings
+from django.conf import settings
+from django.core.management import execute_from_command_line
 
+
+if not settings.configured:
     settings.configure(
-        DEBUG=True,
-        USE_TZ=True,
         DATABASES={
-            "default": {
-                "ENGINE": "django.db.backends.sqlite3",
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
             }
         },
-        ROOT_URLCONF="census.urls",
         INSTALLED_APPS=[
-            "django.contrib.auth",
-            "django.contrib.contenttypes",
-            "django.contrib.sites",
-            "census",
+            'django.contrib.contenttypes',
+            'django.contrib.auth',
+            'census',
+            'tests',
         ],
-        SITE_ID=1,
-        NOSE_ARGS=['-s'],
+        MIDDLEWARE_CLASSES=[],
     )
 
-    try:
-        import django
-        setup = django.setup
-    except AttributeError:
-        pass
-    else:
-        setup()
 
-    from django_nose import NoseTestSuiteRunner
-except ImportError:
-    raise ImportError("To fix this error, run: pip install -r requirements-test.txt")
+def runtests():
 
-
-def run_tests(*test_args):
-    if not test_args:
-        test_args = ['tests']
-
-    # Run tests
-    test_runner = NoseTestSuiteRunner(verbosity=1)
-
-    failures = test_runner.run_tests(test_args)
-
-    if failures:
-        sys.exit(failures)
+    argv = sys.argv[:1] + ['test'] + sys.argv[1:]
+    execute_from_command_line(argv)
 
 
 if __name__ == '__main__':
-    run_tests(*sys.argv[1:])
+    runtests()

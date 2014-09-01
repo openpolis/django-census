@@ -36,7 +36,8 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django-ordered-models'
+        'django>=1.4',
+        'django-ordered-model>=0.4'
     ],
     license="MIT",
     zip_safe=False,

@@ -58,8 +58,8 @@ class QuestionManager(models.Manager):
 
                 # check if user has already replied to this question
                 if question.reply_set.filter(replier=user).exists():
-                    raise QuestionReplyException(_('User "{replier}" already replied to "{question}"'.format(
-                        replier=user, question=question)))
+                    raise QuestionReplyException(_('User "{replier}" already replied to "{question}"').format(
+                        replier=user, question=question))
                 # check if question is ready to be replied
                 if question.status != Question.STATUS_PUBLISHED:
                     raise QuestionReplyException(_('Question "{question}" is not {status_label}'.format(
@@ -67,7 +67,11 @@ class QuestionManager(models.Manager):
                 # check if is valid answer
                 if answer:
                     if not isinstance(answer, Answer):
-                        answer = question.answer_set.get(value=answer)
+                        try:
+                            answer = question.answer_set.get(value=answer)
+                        except Answer.DoesNotExist:
+                            raise QuestionReplyException(_('Answer {answer} is not valid for question {question}')
+                                                         .format(answer=answer, question=question))
                     elif answer not in question.answer_set.all():
                         raise QuestionReplyException(_('Invalid answer "{answer}" for question "{question}"'.format(
                             answer=answer, question=question)))
@@ -80,11 +84,11 @@ class QuestionManager(models.Manager):
                     text=text
                 )
 
-                question_reply.send_robust(question, reply=new_reply)
+                question_reply.send(question, reply=new_reply)
 
                 return new_reply
 
-        except (QuestionReplyException, Answer.DoesNotExist):
+        except QuestionReplyException:
             if not safe_error:
                 raise
 
