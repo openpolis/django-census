@@ -1,40 +1,20 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
-
-python:
-  - "3.3"
-  - "2.7"
-  - "2.6"
-
-env:
-  matrix:
-   - DJANGO=Django==1.4
-   - DJANGO=Django==1.5
-   - DJANGO=Django==1.6
-   - DJANGO="git+git://github.com/django/django.git@stable/1.7.x#egg=django"
-
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
- - pip install -r requirements-test.txt --use-mirrors
- - pip install $DJANGO --use-mirrors
- - pip install . --use-mirrors
-
-branches:
- only:
-  - master
-  - develop
-
-# command to run tests using coverage, e.g. python setup.py test
-script: coverage run --source census runtests.py
-
-matrix:
-  exclude:
-    - python: "3.3"
-      env: DJANGO=Django==1.4
-
-# report coverage to coveralls.io
-after_success:
-  - coverage report
-  - pip install --quiet python-coveralls
-  - coveralls
+  - pip install tox
+script:
+  - tox
+env:
+#  - TOXENV=py33-django15
+#  - TOXENV=py34-django15
+#  - TOXENV=py27-django16
+#  - TOXENV=py33-django16
+  - TOXENV=py34-django16
+  - TOXENV=py27-django17
+#  - TOXENV=py33-django17
+  - TOXENV=py34-django17
+#  - TOXENV=py27-djangomaster
+#  - TOXENV=py33-djangomaster
+#  - TOXENV=py34-djangomaster
+  - TOXENV=pypy2-django16
+  - TOXENV=pypy2-django17
+#  - TOXENV=pypy2-djangomaster

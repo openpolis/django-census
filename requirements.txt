@@ -1,3 +1,9 @@
 django>=1.4
-wheel==0.24
 django-ordered-model>=0.4
+
+# packaging
+wheel>=0.24
+
+# tests
+coverage
+tox

@@ -36,9 +36,11 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'django>=1.4',
+        'django>=1.5',
         'django-ordered-model>=0.4'
     ],
+    tests_require=[],
+    test_suite = 'runtests.runtests',
     license="MIT",
     zip_safe=False,
     keywords='django-census',
